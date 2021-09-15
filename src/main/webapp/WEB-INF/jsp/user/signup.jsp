@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,30 +16,85 @@
 </head>
 <body>
 	<div id="wrap">
-		<header class="bg-secondary">
-			<h1 class="ml-3 pt-1 text-light">Memo</h1>
-		</header>
 		
-		<section class="content d-flex justify-content-center align-items-center">
+		<c:import url="/WEB-INF/jsp/include/header.jsp" />
+		
+		<section class="content d-flex  justify-content-center align-items-center">
 			<div class="login-box">
-				<h1 class="text-center">회원가입</h1>
-				<form>
-					<input type="text" class="form-control" placeholder="아이디를 입력하세요">
-					<input type="password" class="form-control mt-3" placeholder="비밀번호를 입력하세요">
-					<input type="password" class="form-control mt-3" placeholder="비밀번호 확인">
-					<input type="text" class="form-control mt-3" placeholder="이름">
-					<input type="text" class="form-control mt-3" placeholder="이메일주소">
-					<input type="submit" class="btn btn-info btn-block mt-3" value="가입">
-				</form>
+				<h2 class="text-center">회원가입</h2>
+					<form  id="signupForm">
+						<input type="text" id="loginIdInput" name="loginId" class="form-control mt-3" placeholder="아이디">
+						<input type="password" id="passwordInput" name="password" class="form-control mt-3" placeholder="패스워드">
+						<input type="password" id="passwordConfirmInput" class="form-control mt-3" placeholder="패스워드 확인">
+						<input type="text" id="nameInput" name="name" class="form-control mt-3" placeholder="이름">
+						<input type="text" id="emailInput" name="email" class="form-control mt-3" placeholder="이메일">
+						
+						<button type="submit" id="signUpBtn" class="btn btn-info btn-block mt-3">회원가입</button>
+					</form>
 			</div>
 		</section>
 		
-		<footer class="bg-secondary text-center text-light">
-			Copyright 2018. Memo all rights reserved.
-		</footer>
-	
+		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	
 	</div>
-
+	
+	<script>
+	$(document).ready(function() {
+		$("#signupForm").on("submit", function(e) {
+			e.preventDefault();
+			
+			var loginId = $("#loginIdInput").val();
+			var password = $("#passwordInput").val();
+			var passwordConfirm = $("#passwordConfirmInput").val();
+			var name = $("#nameInput").val();
+			var email = $("#emailInput").val();
+			
+			if(loginId == null || loginId == "") {
+				alert("아이디를 입력하세요");
+				return ;
+			}
+			
+			if(password == null || password == "") {
+				alert("비밀번호를 입력하세요");
+				return;
+			}
+			
+			if(password != passwordConfirm) {
+				alert("비밀번호가 일치하지 않습니다.");
+				return ;
+			}
+			
+			if(name == null || name == "") {
+				alert("이름을 입력하세요");
+				return;
+			}
+			
+			if(email == null || email == "") {
+				alert("이메일 주소를 입력하세요");
+				return ;
+			}
+			
+			$.ajax({
+				type:"post",
+				url:"/user/sign_up",
+				data:{"loginId":loginId, "password":password, "name":name, "email":email},
+				success:function(data) {
+					if(data.result == "success") {
+						location.href="/user/signin_view";
+					} else {
+						alert("회원가입 실패");
+					}
+				},
+				error:function(e) {
+					alert("error");
+				}
+				
+			});
+			
+			
+		});
+		
+	});
+	</script>
 </body>
 </html>
