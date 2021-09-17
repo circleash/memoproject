@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class EncryptUtills {
+	
 	// 암호화 메소드
 	// static을 붙임으로 객체 생성 없이도 사용가능.
 	public static String md5(String message) {
