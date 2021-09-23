@@ -19,18 +19,17 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		<section class="d-flex justify-content-center">
 			<div class="w-75 my-4">
-				<h1 class="text-center">메모 입력</h1>
+				<h1 class="text-center">메모</h1>
 				
 				<div class="d-flex my-3">
 					<label class="mr-3">제목 : </label>
-					<input type="text" class="form-control col-11" id="titleInput">
+					<input type="text" class="form-control col-11" id="titleInput" value="${memo.subject }">
 				</div>
-				<textarea class="form-control mb-3" rows="5" id="contentInput"></textarea>
-				<!-- MIME text/html image/jpeg -->
-				<input type="file" accept="image/*" id="fileInput">
+				<textarea class="form-control mb-3" rows="5" id="contentInput">${memo.content }</textarea>
+				<img src="${memo.imagePath }">
 				<div class="d-flex justify-content-between my-3">
 					<a href="/post/list_view" class="btn btn-info">목록으로</a>
-					<button type="button" class="btn btn-success" id="saveBtn">저장</button>
+					<button type="button" class="btn btn-success" id="updateBtn">수정</button>
 				</div>
 			</div>
 		</section>

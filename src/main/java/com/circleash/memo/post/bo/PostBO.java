@@ -1,11 +1,14 @@
 package com.circleash.memo.post.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.circleash.memo.common.FileManagerService;
 import com.circleash.memo.post.dao.PostDAO;
+import com.circleash.memo.post.model.Post;
 
 @Service
 public class PostBO {
@@ -25,8 +28,14 @@ public class PostBO {
 			}
 		}
 		
-		
-		
 		return postDAO.insertPost(userId, subject, content, imagePath);
+	}
+	
+	public List<Post> getMemoList(int userId) {
+		return postDAO.selectMemoList(userId);
+	}
+	
+	public Post getMemo(int id, int userId) {
+		return postDAO.selectMemo(id, userId);
 	}
 }
