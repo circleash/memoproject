@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,7 @@ public class PostRestController {
 		
 		//로그인 로직을 만들때 만든 내용임. 저장해둔 내용을 꺼내쓴것
 		HttpSession session = request.getSession();
+		//사용자 세션 저장
 		int userId = (Integer)session.getAttribute("userId");
 		int count = postBO.addPost(userId, subject, content, file);
 		
@@ -49,6 +51,45 @@ public class PostRestController {
 		}
 		return result;
 	}
-			
+	
+	@GetMapping("/delete")
+	public Map<String, String> delete(@RequestParam("postId") int postId
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Map<String, String> result = new HashMap<>();
+		int count = postBO.deleteMemo(postId, userId);
+		
+		if(count == 0) {
+			result.put("result", "fail");
+		} else {
+			result.put("result", "success");
+		}
+		return result;
+		
+	}
+	//긴내용은 post가 좋음
+	@PostMapping("/update")
+	public Map<String, String> update(
+			@RequestParam("postId") int postId
+			, @RequestParam("subject") String subject
+			, @RequestParam("content") String content
+			, HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Map<String, String> result = new HashMap<>();
+		int count = postBO.updateMemo(postId, subject, content, userId);
+		
+		if(count == 0) {
+			result.put("result", "fail");
+		} else { 
+			result.put("result", "success");
+		}
+		return result;
+	}
 
 }

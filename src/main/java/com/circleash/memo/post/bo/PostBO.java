@@ -38,4 +38,21 @@ public class PostBO {
 	public Post getMemo(int id, int userId) {
 		return postDAO.selectMemo(id, userId);
 	}
+	//실행한 결과
+	public int deleteMemo(int id, int userId) {
+		
+		Post post = this.getMemo(id, userId);
+		
+		if(post.getImagePath() != null) {
+			FileManagerService.removeFile(post.getImagePath());
+		}
+		
+		
+		return postDAO.deleteMemo(id, userId);
+	}
+	
+	public int updateMemo(int id, String subject, String content, int userId) {
+		return postDAO.updateMemo(id, subject, content, userId);
+		
+	}
 }

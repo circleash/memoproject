@@ -21,4 +21,15 @@ public interface PostDAO {
 	public Post selectMemo(
 			@Param("id") int id
 			, @Param("userId") int userId); 
+	
+	public int deleteMemo(@Param("id") int id
+			, @Param("userId") int userId);
+	
+	public int updateMemo(
+			@Param("id") int id
+			, @Param("subject") String subject
+			, @Param("content") String content
+			, @Param("userId") int userId);
+	
+	
 }

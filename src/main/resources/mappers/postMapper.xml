@@ -61,6 +61,28 @@
  		
  	
  	</select>
+ 	
+ 	<delete id="deleteMemo" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`id` = #{id}
+ 			AND `userId` = #{userId}
+ 	
+ 	</delete>
+ 	
+ 	<update id="updateMemo" parameterType="map">
+ 		UPDATE
+ 			`post`
+ 		SET
+ 			`subject` = #{subject}
+ 			, `content` = #{content}
+ 		WHERE
+ 			`id` = #{id}
+ 			AND `userId` = #{userId}
+ 			
+ 	</update>
  
  
  </mapper>
