@@ -25,6 +25,7 @@
 					<label class="mr-3">제목 : </label>
 					<input type="text" class="form-control col-11" id="titleInput">
 				</div>
+				
 				<textarea class="form-control mb-3" rows="5" id="contentInput"></textarea>
 				<!-- MIME text/html image/jpeg -->
 				<input type="file" accept="image/*" id="fileInput">
